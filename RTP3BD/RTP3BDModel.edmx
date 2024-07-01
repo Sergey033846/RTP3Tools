@@ -1,0 +1,839 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище RTP3ESHModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="RTP3_AOEnergo">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="GUID" Type="int" Nullable="false" />
+          <Property Name="Region" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ID_BD" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RTP3_BD">
+          <Key>
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="ID_BD" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="caption_bd" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="RTP3_Centers">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="GUID" Type="int" Nullable="false" />
+          <Property Name="OwnerGUID" Type="int" Nullable="false" />
+          <Property Name="DBB" Type="datetime" />
+          <Property Name="ID_BD" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RTP3_Coors">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="GUID" Type="int" Nullable="false" />
+          <Property Name="X" Type="int" />
+          <Property Name="Y" Type="int" />
+          <Property Name="deltaX" Type="smallint" />
+          <Property Name="deltaY" Type="smallint" />
+          <Property Name="Rule_" Type="smallint" />
+          <Property Name="Additional" Type="int" />
+          <Property Name="ID_BD" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RTP3_GUID">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="GUID" Type="int" Nullable="false" />
+          <Property Name="RELATION_ID" Type="smallint" />
+          <Property Name="ID_BD" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RTP3_PES">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="GUID" Type="int" Nullable="false" />
+          <Property Name="OwnerGUID" Type="int" Nullable="false" />
+          <Property Name="ID_BD" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RTP3_Regions">
+          <Key>
+            <PropertyRef Name="Ident" />
+          </Key>
+          <Property Name="Ident" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RTP3_RES">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="GUID" Type="int" Nullable="false" />
+          <Property Name="OwnerGUID" Type="int" Nullable="false" />
+          <Property Name="ID_BD" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RTP3_Sections">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="8" />
+          <Property Name="GUID" Type="int" Nullable="false" />
+          <Property Name="OwnerGUID" Type="int" Nullable="false" />
+          <Property Name="Unom" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="Rc" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Xc" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="ID_BD" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RTP3_Unom">
+          <Key>
+            <PropertyRef Name="Unom" />
+          </Key>
+          <Property Name="Unom" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="R_122">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_Coors" Type="Self.RTP3_Coors" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_Coors">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_123">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_AOEnergo" Type="Self.RTP3_AOEnergo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_AOEnergo">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_124">
+          <End Role="RTP3_Regions" Type="Self.RTP3_Regions" Multiplicity="1" />
+          <End Role="RTP3_AOEnergo" Type="Self.RTP3_AOEnergo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_Regions">
+              <PropertyRef Name="Ident" />
+            </Principal>
+            <Dependent Role="RTP3_AOEnergo">
+              <PropertyRef Name="Region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_125">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_PES" Type="Self.RTP3_PES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_PES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_126">
+          <End Role="RTP3_AOEnergo" Type="Self.RTP3_AOEnergo" Multiplicity="1" />
+          <End Role="RTP3_PES" Type="Self.RTP3_PES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_AOEnergo">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_PES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="OwnerGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_127">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_RES" Type="Self.RTP3_RES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_RES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_128">
+          <End Role="RTP3_PES" Type="Self.RTP3_PES" Multiplicity="1" />
+          <End Role="RTP3_RES" Type="Self.RTP3_RES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_PES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_RES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="OwnerGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_129">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_Centers" Type="Self.RTP3_Centers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_Centers">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_131">
+          <End Role="RTP3_RES" Type="Self.RTP3_RES" Multiplicity="1" />
+          <End Role="RTP3_Centers" Type="Self.RTP3_Centers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_RES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_Centers">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="OwnerGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_132">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_Sections" Type="Self.RTP3_Sections" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_Sections">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_133">
+          <End Role="RTP3_Centers" Type="Self.RTP3_Centers" Multiplicity="1" />
+          <End Role="RTP3_Sections" Type="Self.RTP3_Sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_Centers">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_Sections">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="OwnerGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_134">
+          <End Role="RTP3_Unom" Type="Self.RTP3_Unom" Multiplicity="1" />
+          <End Role="RTP3_Sections" Type="Self.RTP3_Sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_Unom">
+              <PropertyRef Name="Unom" />
+            </Principal>
+            <Dependent Role="RTP3_Sections">
+              <PropertyRef Name="Unom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_136">
+          <End Role="RTP3_BD" Type="Self.RTP3_BD" Multiplicity="1" />
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_BD">
+              <PropertyRef Name="ID_BD" />
+            </Principal>
+            <Dependent Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище RTP3ESHModelContainer">
+          <EntitySet Name="RTP3_AOEnergo" EntityType="Self.RTP3_AOEnergo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RTP3_BD" EntityType="Self.RTP3_BD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RTP3_Centers" EntityType="Self.RTP3_Centers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RTP3_Coors" EntityType="Self.RTP3_Coors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RTP3_GUID" EntityType="Self.RTP3_GUID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RTP3_PES" EntityType="Self.RTP3_PES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RTP3_Regions" EntityType="Self.RTP3_Regions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RTP3_RES" EntityType="Self.RTP3_RES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RTP3_Sections" EntityType="Self.RTP3_Sections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RTP3_Unom" EntityType="Self.RTP3_Unom" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="R_122" Association="Self.R_122">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_Coors" EntitySet="RTP3_Coors" />
+          </AssociationSet>
+          <AssociationSet Name="R_123" Association="Self.R_123">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_AOEnergo" EntitySet="RTP3_AOEnergo" />
+          </AssociationSet>
+          <AssociationSet Name="R_124" Association="Self.R_124">
+            <End Role="RTP3_Regions" EntitySet="RTP3_Regions" />
+            <End Role="RTP3_AOEnergo" EntitySet="RTP3_AOEnergo" />
+          </AssociationSet>
+          <AssociationSet Name="R_125" Association="Self.R_125">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_PES" EntitySet="RTP3_PES" />
+          </AssociationSet>
+          <AssociationSet Name="R_126" Association="Self.R_126">
+            <End Role="RTP3_AOEnergo" EntitySet="RTP3_AOEnergo" />
+            <End Role="RTP3_PES" EntitySet="RTP3_PES" />
+          </AssociationSet>
+          <AssociationSet Name="R_127" Association="Self.R_127">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_RES" EntitySet="RTP3_RES" />
+          </AssociationSet>
+          <AssociationSet Name="R_128" Association="Self.R_128">
+            <End Role="RTP3_PES" EntitySet="RTP3_PES" />
+            <End Role="RTP3_RES" EntitySet="RTP3_RES" />
+          </AssociationSet>
+          <AssociationSet Name="R_129" Association="Self.R_129">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_Centers" EntitySet="RTP3_Centers" />
+          </AssociationSet>
+          <AssociationSet Name="R_131" Association="Self.R_131">
+            <End Role="RTP3_RES" EntitySet="RTP3_RES" />
+            <End Role="RTP3_Centers" EntitySet="RTP3_Centers" />
+          </AssociationSet>
+          <AssociationSet Name="R_132" Association="Self.R_132">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_Sections" EntitySet="RTP3_Sections" />
+          </AssociationSet>
+          <AssociationSet Name="R_133" Association="Self.R_133">
+            <End Role="RTP3_Centers" EntitySet="RTP3_Centers" />
+            <End Role="RTP3_Sections" EntitySet="RTP3_Sections" />
+          </AssociationSet>
+          <AssociationSet Name="R_134" Association="Self.R_134">
+            <End Role="RTP3_Unom" EntitySet="RTP3_Unom" />
+            <End Role="RTP3_Sections" EntitySet="RTP3_Sections" />
+          </AssociationSet>
+          <AssociationSet Name="R_136" Association="Self.R_136">
+            <End Role="RTP3_BD" EntitySet="RTP3_BD" />
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RTP3ESHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="RTP3_AOEnergo">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="GUID" Type="Int32" Nullable="false" />
+          <Property Name="Region" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_BD" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="RTP3_GUID" Relationship="Self.R_123" FromRole="RTP3_AOEnergo" ToRole="RTP3_GUID" />
+          <NavigationProperty Name="RTP3_Regions" Relationship="Self.R_124" FromRole="RTP3_AOEnergo" ToRole="RTP3_Regions" />
+          <NavigationProperty Name="RTP3_PES" Relationship="Self.R_126" FromRole="RTP3_AOEnergo" ToRole="RTP3_PES" />
+        </EntityType>
+        <EntityType Name="RTP3_BD">
+          <Key>
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="ID_BD" Type="Guid" Nullable="false" />
+          <Property Name="caption_bd" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RTP3_GUID" Relationship="Self.R_136" FromRole="RTP3_BD" ToRole="RTP3_GUID" />
+        </EntityType>
+        <EntityType Name="RTP3_Centers">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GUID" Type="Int32" Nullable="false" />
+          <Property Name="OwnerGUID" Type="Int32" Nullable="false" />
+          <Property Name="DBB" Type="DateTime" Precision="3" />
+          <Property Name="ID_BD" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="RTP3_GUID" Relationship="Self.R_129" FromRole="RTP3_Centers" ToRole="RTP3_GUID" />
+          <NavigationProperty Name="RTP3_RES" Relationship="Self.R_131" FromRole="RTP3_Centers" ToRole="RTP3_RES" />
+          <NavigationProperty Name="RTP3_Sections" Relationship="Self.R_133" FromRole="RTP3_Centers" ToRole="RTP3_Sections" />
+        </EntityType>
+        <EntityType Name="RTP3_Coors">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="GUID" Type="Int32" Nullable="false" />
+          <Property Name="X" Type="Int32" />
+          <Property Name="Y" Type="Int32" />
+          <Property Name="deltaX" Type="Int16" />
+          <Property Name="deltaY" Type="Int16" />
+          <Property Name="Rule_" Type="Int16" />
+          <Property Name="Additional" Type="Int32" />
+          <Property Name="ID_BD" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="RTP3_GUID" Relationship="Self.R_122" FromRole="RTP3_Coors" ToRole="RTP3_GUID" />
+        </EntityType>
+        <EntityType Name="RTP3_GUID">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="GUID" Type="Int32" Nullable="false" />
+          <Property Name="RELATION_ID" Type="Int16" />
+          <Property Name="ID_BD" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="RTP3_AOEnergo" Relationship="Self.R_123" FromRole="RTP3_GUID" ToRole="RTP3_AOEnergo" />
+          <NavigationProperty Name="RTP3_BD" Relationship="Self.R_136" FromRole="RTP3_GUID" ToRole="RTP3_BD" />
+          <NavigationProperty Name="RTP3_Centers" Relationship="Self.R_129" FromRole="RTP3_GUID" ToRole="RTP3_Centers" />
+          <NavigationProperty Name="RTP3_Coors" Relationship="Self.R_122" FromRole="RTP3_GUID" ToRole="RTP3_Coors" />
+          <NavigationProperty Name="RTP3_PES" Relationship="Self.R_125" FromRole="RTP3_GUID" ToRole="RTP3_PES" />
+          <NavigationProperty Name="RTP3_RES" Relationship="Self.R_127" FromRole="RTP3_GUID" ToRole="RTP3_RES" />
+          <NavigationProperty Name="RTP3_Sections" Relationship="Self.R_132" FromRole="RTP3_GUID" ToRole="RTP3_Sections" />
+        </EntityType>
+        <EntityType Name="RTP3_PES">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GUID" Type="Int32" Nullable="false" />
+          <Property Name="OwnerGUID" Type="Int32" Nullable="false" />
+          <Property Name="ID_BD" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="RTP3_AOEnergo" Relationship="Self.R_126" FromRole="RTP3_PES" ToRole="RTP3_AOEnergo" />
+          <NavigationProperty Name="RTP3_GUID" Relationship="Self.R_125" FromRole="RTP3_PES" ToRole="RTP3_GUID" />
+          <NavigationProperty Name="RTP3_RES" Relationship="Self.R_128" FromRole="RTP3_PES" ToRole="RTP3_RES" />
+        </EntityType>
+        <EntityType Name="RTP3_Regions">
+          <Key>
+            <PropertyRef Name="Ident" />
+          </Key>
+          <Property Name="Ident" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="RTP3_AOEnergo" Relationship="Self.R_124" FromRole="RTP3_Regions" ToRole="RTP3_AOEnergo" />
+        </EntityType>
+        <EntityType Name="RTP3_RES">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GUID" Type="Int32" Nullable="false" />
+          <Property Name="OwnerGUID" Type="Int32" Nullable="false" />
+          <Property Name="ID_BD" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="RTP3_Centers" Relationship="Self.R_131" FromRole="RTP3_RES" ToRole="RTP3_Centers" />
+          <NavigationProperty Name="RTP3_GUID" Relationship="Self.R_127" FromRole="RTP3_RES" ToRole="RTP3_GUID" />
+          <NavigationProperty Name="RTP3_PES" Relationship="Self.R_128" FromRole="RTP3_RES" ToRole="RTP3_PES" />
+        </EntityType>
+        <EntityType Name="RTP3_Sections">
+          <Key>
+            <PropertyRef Name="GUID" />
+            <PropertyRef Name="ID_BD" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="GUID" Type="Int32" Nullable="false" />
+          <Property Name="OwnerGUID" Type="Int32" Nullable="false" />
+          <Property Name="Unom" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="Rc" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Xc" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="ID_BD" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="RTP3_Centers" Relationship="Self.R_133" FromRole="RTP3_Sections" ToRole="RTP3_Centers" />
+          <NavigationProperty Name="RTP3_GUID" Relationship="Self.R_132" FromRole="RTP3_Sections" ToRole="RTP3_GUID" />
+          <NavigationProperty Name="RTP3_Unom" Relationship="Self.R_134" FromRole="RTP3_Sections" ToRole="RTP3_Unom" />
+        </EntityType>
+        <EntityType Name="RTP3_Unom">
+          <Key>
+            <PropertyRef Name="Unom" />
+          </Key>
+          <Property Name="Unom" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <NavigationProperty Name="RTP3_Sections" Relationship="Self.R_134" FromRole="RTP3_Unom" ToRole="RTP3_Sections" />
+        </EntityType>
+        <Association Name="R_123">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_AOEnergo" Type="Self.RTP3_AOEnergo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_AOEnergo">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_124">
+          <End Role="RTP3_Regions" Type="Self.RTP3_Regions" Multiplicity="1" />
+          <End Role="RTP3_AOEnergo" Type="Self.RTP3_AOEnergo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_Regions">
+              <PropertyRef Name="Ident" />
+            </Principal>
+            <Dependent Role="RTP3_AOEnergo">
+              <PropertyRef Name="Region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_126">
+          <End Role="RTP3_AOEnergo" Type="Self.RTP3_AOEnergo" Multiplicity="1" />
+          <End Role="RTP3_PES" Type="Self.RTP3_PES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_AOEnergo">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_PES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="OwnerGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_136">
+          <End Role="RTP3_BD" Type="Self.RTP3_BD" Multiplicity="1" />
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_BD">
+              <PropertyRef Name="ID_BD" />
+            </Principal>
+            <Dependent Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_129">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_Centers" Type="Self.RTP3_Centers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_Centers">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_131">
+          <End Role="RTP3_RES" Type="Self.RTP3_RES" Multiplicity="1" />
+          <End Role="RTP3_Centers" Type="Self.RTP3_Centers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_RES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_Centers">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="OwnerGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_133">
+          <End Role="RTP3_Centers" Type="Self.RTP3_Centers" Multiplicity="1" />
+          <End Role="RTP3_Sections" Type="Self.RTP3_Sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_Centers">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_Sections">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="OwnerGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_122">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_Coors" Type="Self.RTP3_Coors" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_Coors">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_125">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_PES" Type="Self.RTP3_PES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_PES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_127">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_RES" Type="Self.RTP3_RES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_RES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_132">
+          <End Role="RTP3_GUID" Type="Self.RTP3_GUID" Multiplicity="1" />
+          <End Role="RTP3_Sections" Type="Self.RTP3_Sections" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_GUID">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_Sections">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_128">
+          <End Role="RTP3_PES" Type="Self.RTP3_PES" Multiplicity="1" />
+          <End Role="RTP3_RES" Type="Self.RTP3_RES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_PES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="RTP3_RES">
+              <PropertyRef Name="ID_BD" />
+              <PropertyRef Name="OwnerGUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_134">
+          <End Role="RTP3_Unom" Type="Self.RTP3_Unom" Multiplicity="1" />
+          <End Role="RTP3_Sections" Type="Self.RTP3_Sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RTP3_Unom">
+              <PropertyRef Name="Unom" />
+            </Principal>
+            <Dependent Role="RTP3_Sections">
+              <PropertyRef Name="Unom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RTP3ESHEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="RTP3_AOEnergo" EntityType="Self.RTP3_AOEnergo" />
+          <EntitySet Name="RTP3_BD" EntityType="Self.RTP3_BD" />
+          <EntitySet Name="RTP3_Centers" EntityType="Self.RTP3_Centers" />
+          <EntitySet Name="RTP3_Coors" EntityType="Self.RTP3_Coors" />
+          <EntitySet Name="RTP3_GUID" EntityType="Self.RTP3_GUID" />
+          <EntitySet Name="RTP3_PES" EntityType="Self.RTP3_PES" />
+          <EntitySet Name="RTP3_Regions" EntityType="Self.RTP3_Regions" />
+          <EntitySet Name="RTP3_RES" EntityType="Self.RTP3_RES" />
+          <EntitySet Name="RTP3_Sections" EntityType="Self.RTP3_Sections" />
+          <EntitySet Name="RTP3_Unom" EntityType="Self.RTP3_Unom" />
+          <AssociationSet Name="R_123" Association="Self.R_123">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_AOEnergo" EntitySet="RTP3_AOEnergo" />
+          </AssociationSet>
+          <AssociationSet Name="R_124" Association="Self.R_124">
+            <End Role="RTP3_Regions" EntitySet="RTP3_Regions" />
+            <End Role="RTP3_AOEnergo" EntitySet="RTP3_AOEnergo" />
+          </AssociationSet>
+          <AssociationSet Name="R_126" Association="Self.R_126">
+            <End Role="RTP3_AOEnergo" EntitySet="RTP3_AOEnergo" />
+            <End Role="RTP3_PES" EntitySet="RTP3_PES" />
+          </AssociationSet>
+          <AssociationSet Name="R_136" Association="Self.R_136">
+            <End Role="RTP3_BD" EntitySet="RTP3_BD" />
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+          </AssociationSet>
+          <AssociationSet Name="R_129" Association="Self.R_129">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_Centers" EntitySet="RTP3_Centers" />
+          </AssociationSet>
+          <AssociationSet Name="R_131" Association="Self.R_131">
+            <End Role="RTP3_RES" EntitySet="RTP3_RES" />
+            <End Role="RTP3_Centers" EntitySet="RTP3_Centers" />
+          </AssociationSet>
+          <AssociationSet Name="R_133" Association="Self.R_133">
+            <End Role="RTP3_Centers" EntitySet="RTP3_Centers" />
+            <End Role="RTP3_Sections" EntitySet="RTP3_Sections" />
+          </AssociationSet>
+          <AssociationSet Name="R_122" Association="Self.R_122">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_Coors" EntitySet="RTP3_Coors" />
+          </AssociationSet>
+          <AssociationSet Name="R_125" Association="Self.R_125">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_PES" EntitySet="RTP3_PES" />
+          </AssociationSet>
+          <AssociationSet Name="R_127" Association="Self.R_127">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_RES" EntitySet="RTP3_RES" />
+          </AssociationSet>
+          <AssociationSet Name="R_132" Association="Self.R_132">
+            <End Role="RTP3_GUID" EntitySet="RTP3_GUID" />
+            <End Role="RTP3_Sections" EntitySet="RTP3_Sections" />
+          </AssociationSet>
+          <AssociationSet Name="R_128" Association="Self.R_128">
+            <End Role="RTP3_PES" EntitySet="RTP3_PES" />
+            <End Role="RTP3_RES" EntitySet="RTP3_RES" />
+          </AssociationSet>
+          <AssociationSet Name="R_134" Association="Self.R_134">
+            <End Role="RTP3_Unom" EntitySet="RTP3_Unom" />
+            <End Role="RTP3_Sections" EntitySet="RTP3_Sections" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RTP3ESHModelContainer" CdmEntityContainer="RTP3ESHEntities">
+          <EntitySetMapping Name="RTP3_AOEnergo">
+            <EntityTypeMapping TypeName="RTP3ESHModel.RTP3_AOEnergo">
+              <MappingFragment StoreEntitySet="RTP3_AOEnergo">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_BD" ColumnName="ID_BD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RTP3_BD">
+            <EntityTypeMapping TypeName="RTP3ESHModel.RTP3_BD">
+              <MappingFragment StoreEntitySet="RTP3_BD">
+                <ScalarProperty Name="ID_BD" ColumnName="ID_BD" />
+                <ScalarProperty Name="caption_bd" ColumnName="caption_bd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RTP3_Centers">
+            <EntityTypeMapping TypeName="RTP3ESHModel.RTP3_Centers">
+              <MappingFragment StoreEntitySet="RTP3_Centers">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="OwnerGUID" ColumnName="OwnerGUID" />
+                <ScalarProperty Name="DBB" ColumnName="DBB" />
+                <ScalarProperty Name="ID_BD" ColumnName="ID_BD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RTP3_Coors">
+            <EntityTypeMapping TypeName="RTP3ESHModel.RTP3_Coors">
+              <MappingFragment StoreEntitySet="RTP3_Coors">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="deltaX" ColumnName="deltaX" />
+                <ScalarProperty Name="deltaY" ColumnName="deltaY" />
+                <ScalarProperty Name="Rule_" ColumnName="Rule_" />
+                <ScalarProperty Name="Additional" ColumnName="Additional" />
+                <ScalarProperty Name="ID_BD" ColumnName="ID_BD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RTP3_GUID">
+            <EntityTypeMapping TypeName="RTP3ESHModel.RTP3_GUID">
+              <MappingFragment StoreEntitySet="RTP3_GUID">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="RELATION_ID" ColumnName="RELATION_ID" />
+                <ScalarProperty Name="ID_BD" ColumnName="ID_BD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RTP3_PES">
+            <EntityTypeMapping TypeName="RTP3ESHModel.RTP3_PES">
+              <MappingFragment StoreEntitySet="RTP3_PES">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="OwnerGUID" ColumnName="OwnerGUID" />
+                <ScalarProperty Name="ID_BD" ColumnName="ID_BD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RTP3_Regions">
+            <EntityTypeMapping TypeName="RTP3ESHModel.RTP3_Regions">
+              <MappingFragment StoreEntitySet="RTP3_Regions">
+                <ScalarProperty Name="Ident" ColumnName="Ident" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RTP3_RES">
+            <EntityTypeMapping TypeName="RTP3ESHModel.RTP3_RES">
+              <MappingFragment StoreEntitySet="RTP3_RES">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="OwnerGUID" ColumnName="OwnerGUID" />
+                <ScalarProperty Name="ID_BD" ColumnName="ID_BD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RTP3_Sections">
+            <EntityTypeMapping TypeName="RTP3ESHModel.RTP3_Sections">
+              <MappingFragment StoreEntitySet="RTP3_Sections">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="OwnerGUID" ColumnName="OwnerGUID" />
+                <ScalarProperty Name="Unom" ColumnName="Unom" />
+                <ScalarProperty Name="Rc" ColumnName="Rc" />
+                <ScalarProperty Name="Xc" ColumnName="Xc" />
+                <ScalarProperty Name="ID_BD" ColumnName="ID_BD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RTP3_Unom">
+            <EntityTypeMapping TypeName="RTP3ESHModel.RTP3_Unom">
+              <MappingFragment StoreEntitySet="RTP3_Unom">
+                <ScalarProperty Name="Unom" ColumnName="Unom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
